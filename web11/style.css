@@ -1,0 +1,465 @@
+/* =============== */
+/*  RESET & BASE   */
+/* =============== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html, body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #020202; /* black background */
+    color: #fff;            /* white text */
+    line-height: 1.6;
+    overflow-y: auto;
+    margin: 0;
+  }
+  
+  /* Fade Overlay */
+  #fadeOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    opacity: 1;
+    visibility: visible;
+    z-index: 1000;
+    transition: opacity 2s ease-in-out, visibility 0s linear 2s;
+  }
+  #fadeOverlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  #toggleAbout {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: white;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  #toggleAbout:hover {
+    transform: scale(1.1);
+  }
+  #aboutContent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    background-color: #000;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+    opacity: 0;
+  }
+
+  #aboutContent.active {
+    max-height: 4000px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  
+  /* Spider Canvas behind everything */
+  #canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;  /* behind other content */
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    opacity: 0.6;
+    transition: opacity 2s ease-in-out;
+  }
+  /* Show spider animation */
+    #canvas.visible {
+      opacity: 1;
+    }
+      
+  /* Landing Section */
+  #landing {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7); /* 70% black overlay */
+    text-align: center;
+    z-index: 999;
+    transition: opacity 2s ease; 
+  }
+  #welcomeText {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transition: opacity 1.5s ease-in-out;
+  }
+  #startButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #b30000; 
+    font-weight: 600; 
+    font-size: 1rem;
+    transition: color 0.4s ease; 
+    z-index: 1000;
+  }
+  #startButton:hover {
+    color: #fff;
+  }
+  
+  /* Portfolio Section */
+  #portfolio {
+    /* On the portfolio page, it can be block by default */
+    max-width: 1500px;      /* or 1000px, adjust as you like */
+    margin: 2rem auto;     /* center and add vertical margin */
+    padding: 1.5rem;       /* inner space for all sides */
+    background: transparent;
+    box-sizing: border-box;
+    width: 100%;
+    opacity: 1; /* if you want fade, you can control it with JS */
+    }
+  
+  /* Hero / greeting */
+  .hero {
+    background-color:transparent;
+    padding: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .intro-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  .intro-subtitle {
+    font-size: 1rem;
+    color: #ccc;
+    text-align: left;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  .hero h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+  
+  /* Link styling */
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Footer */
+  footer {
+    width: 100%;
+    background: transparent;
+    color: #696969;
+    font-size: 1rem;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    margin-top: 2rem;
+  }
+  
+  /* Collapsible toggles */
+  #workContent {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+  }
+  
+  #workContent.active {
+    max-height: 99999999999999999999px; /* tambah buat anu */
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #toggleWork {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: white;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  #toggleWork:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Project1 collapsible */
+  #project1Content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    background-color: #000;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+  }
+  #project1Content.active {
+    max-height: 4000px; /* large enough for content */
+    opacity: 1;
+  }
+  #project1Toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; 
+    font-weight: 600; 
+    font-size: 0.8rem;
+    transition: color 0.1s ease; 
+    z-index: 1000;
+  }
+  #project1Toggle:hover {
+    color: #830000;
+  }
+
+  #kuliahkuContent {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+  background-color: #000;
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+  }
+  #kuliahkuContent.active {
+    max-height: 4000px;
+    opacity: 1;
+  }
+  #kuliahkuToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; 
+    font-weight: 600; 
+    font-size: 0.8rem;
+    transition: color 0.1s ease; 
+    z-index: 1000;
+  }
+  #kuliahkuToggle:hover {
+    color: #830000;
+  }
+  
+  /* Research collapsible */
+  #researchContent {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    background-color: #000;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+  }
+  #researchContent.active {
+    max-height: 4000px; /* large enough for content */
+    opacity: 1;
+  }
+  #researchToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; 
+    font-weight: 600; 
+    font-size: 0.8rem;
+    transition: color 0.1s ease; 
+  }
+  #researchToggle:hover {
+    color: #830000;
+  }
+  
+  /* Anomali */
+  #tebakanomaliContent {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+  background-color: #000;
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+  }
+  #tebakanomaliContent.active {
+    max-height: 4000px;
+    opacity: 1;
+  }
+  #tebakanomaliToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; 
+    font-weight: 600; 
+    font-size: 0.8rem;
+    transition: color 0.1s ease; 
+  }
+  #tebakanomaliToggle:hover {
+    color: #830000;
+  }
+
+  /* Roblox collapsible */
+  #robloxContent {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    background-color: #000;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+  }
+  #robloxContent.active {
+    max-height: 4000px; /* large enough for content */
+    opacity: 1;  }
+  #roblox {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; 
+    font-weight: 600; 
+    font-size: 0.8rem;
+    transition: color 0.1s ease; 
+  }
+  #roblox:hover {
+    color: #830000;
+  }
+  
+  /* Socials */
+  #socials {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  #socialToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    padding: 5px;
+    transition: transform 0.3s ease;
+  }
+  #socialToggle:hover {
+    transform: scale(1.2);
+  }
+  #socialIcons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  #socialIcons a {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+  #socialIcons.active a {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #socialIcons.active a:nth-child(1) { transition-delay: 0.1s; }
+  #socialIcons.active a:nth-child(2) { transition-delay: 0.2s; }
+  #socialIcons.active a:nth-child(3) { transition-delay: 0.3s; }
+  #socialIcons.active a:nth-child(4) { transition-delay: 0.4s; }
+  #socials img {
+    width: 32px;
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  #socials img:hover {
+    opacity: 0.2;
+  }
+  
+  /* Image galleries */
+
+.parallax {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+.scroller {
+  display: flex;
+  white-space: nowrap;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 2.25rem;
+  font-weight: bold;
+  letter-spacing: -0.02em;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  animation: marquee 10s linear infinite;
+}
+.scroller span {
+  flex-shrink: 0;
+  margin-right: 32px;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (min-width: 768px) {
+  .scroller {
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+}
+
+  .blur-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(-30px);
+  transition: 
+    opacity 0.6s cubic-bezier(.4,0,.2,1),
+    filter 0.6s cubic-bezier(.4,0,.2,1),
+    transform 0.6s cubic-bezier(.4,0,.2,1);
+}
+.blur-word.visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+  .image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .image-container {
+    text-align: center;
+    width: 30%;
+    min-width: 200px;
+  }
+  .image-container img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+  }
+  .image-description {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 5px;
+    text-align: center;
+  }
+  
