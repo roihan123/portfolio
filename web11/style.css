@@ -6,13 +6,20 @@
     padding: 0;
     box-sizing: border-box;
   }
-  html, body {
+  html {
+    height: 100%;
+  }
+
+  body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #020202; /* black background */
-    color: #fff;            /* white text */
+    background-color: #020202;
+    color: #fff;
     line-height: 1.6;
-    overflow-y: auto;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Kunci: Body akan selalu setinggi minimal layar */
   }
   
   /* Fade Overlay */
@@ -116,9 +123,14 @@
   /* Portfolio Section */
   #portfolio {
     /* On the portfolio page, it can be block by default */
-    max-width: 1500px;      /* or 1000px, adjust as you like */
-    margin: 2rem auto;     /* center and add vertical margin */
-    padding: 1.5rem;       /* inner space for all sides */
+    flex-grow: 1; /* Kunci: Membuat elemen ini mengisi ruang yang tersedia */
+    max-width: 1500px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: transparent;
+    box-sizing: border-box;
+    width: 100%;
+    opacity: 1;
     background: transparent;
     box-sizing: border-box;
     width: 100%;
@@ -127,35 +139,28 @@
   
   /* Hero / greeting */
   .hero {
-    background-color:transparent;
-    padding: 3rem;
+    background-color: transparent;
+    padding: 3rem 1rem; /* Padding horizontal dikurangi untuk mobile */
     text-align: center;
     margin-bottom: 2rem;
+    min-height: 40vh; /* Tinggi minimal 40% dari tinggi layar */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Konten di tengah secara vertikal */
+    align-items: center; /* Konten di tengah secara horizontal */
   }
   .intro-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: white;
-    height: 4rem;
     margin-bottom: 0.5rem;
   }
 
-  /* .intro-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 0.5rem;
-    height: 7rem; 
-    display: flex;
-    justify-content: center; 
-    align-items: center;   
-    flex-wrap: wrap;        
-  } */
 
   .intro-subtitle {
     font-size: 1rem;
     color: #ccc;
-    text-align: left;
+    text-align: center;
     justify-content: center; 
     width: fit-content;
     margin: 0 auto;
@@ -184,10 +189,8 @@
     color: #696969;
     font-size: 1rem;
     text-align: center;
-    position: relative;
-    bottom: 0;
-    left: 0;
     margin-top: 2rem;
+    padding: 1rem 0; /* Menambahkan sedikit padding untuk ruang napas */
   }
   
   /* Collapsible toggles */
@@ -411,7 +414,7 @@
 .parallax {
   position: relative;
   overflow: hidden;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 .scroller {
   display: flex;
