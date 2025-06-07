@@ -136,12 +136,27 @@
     font-size: 2rem;
     font-weight: bold;
     color: white;
+    height: 4rem;
     margin-bottom: 0.5rem;
   }
+
+  /* .intro-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+    height: 7rem; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;   
+    flex-wrap: wrap;        
+  } */
+
   .intro-subtitle {
     font-size: 1rem;
     color: #ccc;
     text-align: left;
+    justify-content: center; 
     width: fit-content;
     margin: 0 auto;
   }

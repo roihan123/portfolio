@@ -313,7 +313,7 @@ if (welcomeText) {
 const greetingsPart = document.getElementById("greetingsPart");
 if (greetingsPart) {
   const greetings = [
-    "你好","Hello","Hola","Bonjour","Hallo","Ciao","こんにちは",
+    "你好","Hello","Hola","Olá","Hallo","Ciao","yo!",
     "안녕","Hæ","Привет","Hi"
   ];
   let greetingIndex = 0;
