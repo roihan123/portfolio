@@ -239,8 +239,7 @@
     border: none;
     cursor: pointer;
     color: #ffffff; 
-
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: color 0.1s ease; 
     z-index: 1000;
   }
@@ -266,7 +265,7 @@
     border: none;
     cursor: pointer;
     color: #ffffff; 
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: color 0.1s ease; 
     z-index: 1000;
   }
@@ -293,7 +292,7 @@
     border: none;
     cursor: pointer;
     color: #ffffff; 
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: color 0.1s ease; 
   }
   #researchToggle:hover {
@@ -319,7 +318,7 @@
     border: none;
     cursor: pointer;
     color: #ffffff; 
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: color 0.1s ease; 
   }
   #tebakanomaliToggle:hover {
@@ -344,7 +343,7 @@
     border: none;
     cursor: pointer;
     color: #ffffff; 
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: color 0.1s ease; 
   }
   #roblox:hover {
