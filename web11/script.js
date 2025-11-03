@@ -381,27 +381,27 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Homepage",
                 description: "This is the dashboard of the app.",
-                image: "images/kuliahku1.jpg",
+                image: "../images/kuliahku1.jpg",
             },
             {
                 title: "Schedule",
                 description: "Organize your subject schedule.",
-                image: "images/kuliahku2.jpg",
+                image: "../images/kuliahku2.jpg",
             },
             {
                 title: "Task",
                 description: "Organize your tasks and deadlines.",
-                image: "images/kuliahku3.jpg",
+                image: "../images/kuliahku3.jpg",
             },
             {
                 title: "Notes",
                 description: "Write and save your notes.",
-                image: "images/kuliahku4.jpg",
+                image: "../images/kuliahku4.jpg",
             },
             {
                 title: "Calendar",
                 description: "See all your schedule and task deadlines.",
-                image: "images/kuliahku5.jpg",
+                image: "../images/kuliahku5.jpg",
             },
         ],
         // Second set of items
@@ -409,17 +409,17 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Main Menu",
                 description: "This is the main menu of the game",
-                image: "images/Awal.jpeg",
+                image: "../images/Awal.jpeg",
             },
             {
                 title: "Skills",
                 description: "Power-up obtained by the player.",
-                image: "images/buff.png",
+                image: "../images/buff.png",
             },
             {
                 title: "Find the key!",
                 description: "A hidden key to unlock new areas.",
-                image: "images/kunci1.png",
+                image: "../images/kunci1.png",
             },
         ],
         research1 : [
