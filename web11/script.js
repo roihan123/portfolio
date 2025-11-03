@@ -297,7 +297,12 @@ if (welcomeText) {
     "Arial, sans-serif",
     "'Courier New', monospace",
     "'Times New Roman', serif",
-    "'Roboto Mono', sans-serif"
+    "'Roboto Mono', monospace",
+    "'Inter', sans-serif",
+    "'Montserrat', sans-serif",
+    "'Poppins', sans-serif",
+    "'Lato', sans-serif",
+    "'Fira Code', monospace"
   ];
   let fontIndex = 0;
   function updateWelcomeFont() {
