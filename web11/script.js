@@ -131,8 +131,7 @@ const startButton = document.getElementById('startButton');
 if (startButton) {
   startButton.addEventListener('click', () => {
     // Instead of fading out on the same page,
-    // simply redirect to your Portfolio page:
-    window.location.href = 'portfolio.html';
+    window.location.href = 'portofolio/';
   });
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -201,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 3500); // Delay before black screen
 
             setTimeout(() => {
-                window.location.href = "portfolio.html"; // Redirect after fade-out
+                window.location.href = "portofolio/"; // Redirect after fade-out
             }, 5000); // Redirect after 4 seconds
         });
     }
@@ -371,4 +370,347 @@ function startTransition() {
     window.location.href = 'nextpage.html'; // Redirect to another page
   }, 2000); // Wait for the transition to complete (2 seconds)
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    // --- ALL CAROUSEL DATA ---
+    // Define all your different item sets here.
+    // I'm using placeholder images from picsum.photos for this example.
+    const allCarouselData = {
+        // First set of items
+        kuliahku: [
+            {
+                title: "Homepage",
+                description: "This is the dashboard of the app.",
+                image: "images/kuliahku1.jpg",
+            },
+            {
+                title: "Schedule",
+                description: "Organize your subject schedule.",
+                image: "images/kuliahku2.jpg",
+            },
+            {
+                title: "Task",
+                description: "Organize your tasks and deadlines.",
+                image: "images/kuliahku3.jpg",
+            },
+            {
+                title: "Notes",
+                description: "Write and save your notes.",
+                image: "images/kuliahku4.jpg",
+            },
+            {
+                title: "Calendar",
+                description: "See all your schedule and task deadlines.",
+                image: "images/kuliahku5.jpg",
+            },
+        ],
+        // Second set of items
+        yakui: [
+            {
+                title: "Main Menu",
+                description: "This is the main menu of the game",
+                image: "images/Awal.jpeg",
+            },
+            {
+                title: "Skills",
+                description: "Power-up obtained by the player.",
+                image: "images/buff.png",
+            },
+            {
+                title: "Find the key!",
+                description: "A hidden key to unlock new areas.",
+                image: "images/kunci1.png",
+            },
+        ],
+        research1 : [
+            {
+                title: "City at Night",
+                description: "The vibrant lights of downtown.",
+                image: "https://picsum.photos/id/1074/400/400",
+            },
+            {
+                title: "Urban Architecture",
+                description: "Modern buildings and design.",
+                image: "https://picsum.photos/id/163/400/400",
+            },
+            {
+                title: "Street View",
+                description: "A bustling city street.",
+                image: "https://picsum.photos/id/22/400/400",
+            },
+            {
+                title: "Metropolis",
+                description: "A wide-angle shot of the city.",
+                image: "https://picsum.photos/id/30/400/400",
+            },
+        ],
+        tebak : [
+            {
+                title: "City at Night",
+                description: "The vibrant lights of downtown.",
+                image: "https://picsum.photos/id/1074/400/400",
+            },
+            {
+                title: "Urban Architecture",
+                description: "Modern buildings and design.",
+                image: "https://picsum.photos/id/163/400/400",
+            },
+            {
+                title: "Street View",
+                description: "A bustling city street.",
+                image: "https://picsum.photos/id/22/400/400",
+            },
+            {
+                title: "Metropolis",
+                description: "A wide-angle shot of the city.",
+                image: "https://picsum.photos/id/30/400/400",
+            },
+        ],
+        roblox : [
+            {
+                title: "City at Night",
+                description: "The vibrant lights of downtown.",
+                image: "https://picsum.photos/id/1074/400/400",
+            },
+            {
+                title: "Urban Architecture",
+                description: "Modern buildings and design.",
+                image: "https://picsum.photos/id/163/400/400",
+            },
+            {
+                title: "Street View",
+                description: "A bustling city street.",
+                image: "https://picsum.photos/id/22/400/400",
+            },
+            {
+                title: "Metropolis",
+                description: "A wide-angle shot of the city.",
+                image: "https://picsum.photos/id/30/400/400",
+            },
+        ],
+        // A default set in case the HTML doesn't specify one
+
+    };
+
+    const carousels = document.querySelectorAll(".carousel-wrapper");
+
+    carousels.forEach(wrapper => {
+        // --- CHOOSE THE RIGHT DATA ---
+        // Read the 'data-items' attribute from the HTML element.
+        // If it doesn't exist, use the 'default' set.
+        const dataKey = wrapper.dataset.items || "default";
+        const items = allCarouselData[dataKey];
+
+        // --- CONFIGURATION ---
+        const config = {
+            baseWidth: 300,
+            autoplay: true,
+            autoplayDelay: 4000,
+            pauseOnHover: true,
+            loop: true,
+        };
+
+        let currentIndex = 0;
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID;
+        let isHovered = false;
+        let autoplayInterval;
+
+        const containerPadding = 16;
+        const itemWidth = config.baseWidth - containerPadding * 2;
+        const gap = 16;
+        const trackItemOffset = itemWidth + gap;
+        const carouselItems = config.loop ? [...items, items[0]] : items;
+
+        function buildCarousel() {
+            // Updated to use the 'image' property
+            const carouselHTML = `
+                <div class="carousel-container" style="width: ${config.baseWidth}px; height: 450px">
+                    <div class="carousel-track">
+                        ${carouselItems.map(item => `
+                            <div class="carousel-item">
+                                <div class="item-image-container">
+                                    <img src="${item.image}" alt="${item.title}" class="item-image">
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-title">${item.title}</div>
+                                    <p class="item-description">${item.description}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="indicators-container">
+                        <div class="indicators">
+                            ${items.map((_, index) => `<div class="indicator" data-index="${index}"></div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            wrapper.innerHTML = carouselHTML;
+        }
+
+        buildCarousel();
+
+        // The rest of the script is the same...
+        const track = wrapper.querySelector(".carousel-track");
+        const container = wrapper.querySelector(".carousel-container");
+        const allItems = wrapper.querySelectorAll(".carousel-item");
+        const indicators = wrapper.querySelectorAll(".indicator");
+
+        function setPositionByIndex() {
+            currentTranslate = currentIndex * -trackItemOffset;
+            prevTranslate = currentTranslate;
+            setTrackPosition();
+            updateIndicators();
+        }
+
+        function setTrackPosition() {
+            track.style.transform = `translateX(${currentTranslate}px)`;
+            updateItemRotation();
+        }
+
+        function updateItemRotation() {
+            allItems.forEach((item, index) => {
+                const range = [
+                    -(index + 1) * trackItemOffset,
+                    -index * trackItemOffset,
+                    -(index - 1) * trackItemOffset,
+                ];
+                const rotateY = calculateRotation(currentTranslate, range, [90, 0, -90]);
+                item.style.transform = `rotateY(${rotateY}deg)`;
+            });
+        }
+        
+        function calculateRotation(value, inputRange, outputRange) {
+            if (value < inputRange[0]) return outputRange[0];
+            if (value > inputRange[2]) return outputRange[2];
+            let result;
+            if (value < inputRange[1]) {
+                result = outputRange[0] + (value - inputRange[0]) * ((outputRange[1] - outputRange[0]) / (inputRange[1] - inputRange[0]));
+            } else {
+                result = outputRange[1] + (value - inputRange[1]) * ((outputRange[2] - outputRange[1]) / (inputRange[2] - inputRange[1]));
+            }
+            return result;
+        }
+
+        function animation() {
+            setTrackPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        }
+
+        function dragStart(e) {
+            isDragging = true;
+            startPos = getPositionX(e);
+            track.classList.add("grabbing");
+            track.style.transition = 'none';
+            animationID = requestAnimationFrame(animation);
+            stopAutoplay();
+        }
+
+        function dragMove(e) {
+            if (!isDragging) return;
+            const currentPosition = getPositionX(e);
+            currentTranslate = prevTranslate + currentPosition - startPos;
+        }
+
+        function dragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            cancelAnimationFrame(animationID);
+            track.classList.remove("grabbing");
+            track.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+
+            const movedBy = currentTranslate - prevTranslate;
+            if (movedBy < -100 && currentIndex < carouselItems.length - 1) {
+                currentIndex += 1;
+            }
+            if (movedBy > 100 && currentIndex > 0) {
+                currentIndex -= 1;
+            }
+            
+            if (config.loop && currentIndex === items.length) {
+                setPositionByIndex();
+                setTimeout(() => {
+                    track.style.transition = 'none';
+                    currentIndex = 0;
+                    setPositionByIndex();
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    }, 50);
+                }, 300);
+            } else {
+                 setPositionByIndex();
+            }
+           
+            startAutoplay();
+        }
+
+        function getPositionX(e) {
+            return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+        }
+
+        function updateIndicators() {
+            indicators.forEach((indicator, index) => {
+                if (index === currentIndex % items.length) {
+                    indicator.classList.add("active");
+                } else {
+                    indicator.classList.remove("active");
+                }
+            });
+        }
+
+        function startAutoplay() {
+            if (!config.autoplay || isHovered) return;
+            autoplayInterval = setInterval(() => {
+                currentIndex += 1;
+                if (config.loop && currentIndex >= carouselItems.length) {
+                    setPositionByIndex();
+                    setTimeout(() => {
+                         track.style.transition = 'none';
+                         currentIndex = 0;
+                         setPositionByIndex();
+                         setTimeout(() => track.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 50);
+                    }, 300);
+                } else if (!config.loop && currentIndex >= items.length) {
+                     currentIndex = items.length - 1;
+                } else {
+                     setPositionByIndex();
+                }
+            }, config.autoplayDelay);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        track.addEventListener("mousedown", dragStart);
+        track.addEventListener("touchstart", dragStart, { passive: true });
+        
+        document.addEventListener("mousemove", dragMove);
+        document.addEventListener("touchmove", dragMove, { passive: true });
+        
+        document.addEventListener("mouseup", dragEnd);
+        document.addEventListener("touchend", dragEnd);
+
+        indicators.forEach(indicator => {
+            indicator.addEventListener("click", () => {
+                currentIndex = parseInt(indicator.dataset.index);
+                setPositionByIndex();
+                stopAutoplay();
+                startAutoplay();
+            });
+        });
+
+        if (config.pauseOnHover) {
+            container.addEventListener('mouseenter', () => { isHovered = true; stopAutoplay(); });
+            container.addEventListener('mouseleave', () => { isHovered = false; startAutoplay(); });
+        }
+
+        setPositionByIndex();
+        startAutoplay();
+    });
+});
 

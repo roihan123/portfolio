@@ -46,7 +46,7 @@
     cursor: pointer;
     font-size: 1.2rem;
     color: white;
-    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    transition: transform 0.3s ease, color 0.3s ease;
   }
   #toggleAbout:hover {
     transform: scale(1.1);
@@ -240,7 +240,7 @@
     cursor: pointer;
     color: #ffffff; 
     font-weight: 600; 
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     transition: color 0.1s ease; 
     z-index: 1000;
   }
@@ -267,7 +267,7 @@
     cursor: pointer;
     color: #ffffff; 
     font-weight: 600; 
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     transition: color 0.1s ease; 
     z-index: 1000;
   }
@@ -295,7 +295,7 @@
     cursor: pointer;
     color: #ffffff; 
     font-weight: 600; 
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     transition: color 0.1s ease; 
   }
   #researchToggle:hover {
@@ -322,7 +322,7 @@
     cursor: pointer;
     color: #ffffff; 
     font-weight: 600; 
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     transition: color 0.1s ease; 
   }
   #tebakanomaliToggle:hover {
@@ -348,7 +348,7 @@
     cursor: pointer;
     color: #ffffff; 
     font-weight: 600; 
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     transition: color 0.1s ease; 
   }
   #roblox:hover {
@@ -386,7 +386,8 @@
   }
   #socialIcons a {
     opacity: 0;
-    transform: translateY(10px);
+    /* slide slightly UP when hidden so it "gets back up" on closing */
+    transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
   }
@@ -395,10 +396,17 @@
     transform: translateY(0);
     pointer-events: auto;
   }
+  /* Stagger on open (top to bottom) */
   #socialIcons.active a:nth-child(1) { transition-delay: 0.1s; }
   #socialIcons.active a:nth-child(2) { transition-delay: 0.2s; }
   #socialIcons.active a:nth-child(3) { transition-delay: 0.3s; }
   #socialIcons.active a:nth-child(4) { transition-delay: 0.4s; }
+
+  /* Reverse stagger on close (bottom to top) */
+  #socialIcons:not(.active) a:nth-child(1) { transition-delay: 0.3s; }
+  #socialIcons:not(.active) a:nth-child(2) { transition-delay: 0.2s; }
+  #socialIcons:not(.active) a:nth-child(3) { transition-delay: 0.1s; }
+  #socialIcons:not(.active) a:nth-child(4) { transition-delay: 0s; }
   #socials img {
     width: 32px;
     height: auto;
@@ -416,7 +424,7 @@
   overflow: hidden;
   margin-bottom: 1rem;
 }
-.scroller {
+.parallax::before {
   display: flex;
   white-space: nowrap;
   text-align: center;
@@ -481,3 +489,153 @@
     text-align: center;
   }
   
+  /* image */
+  #carousel-wrapper {
+    height: 300px;
+    width: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main container for the carousel */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    padding: 16px;
+    border: 1px solid #222;
+    border-radius: 14px;
+    box-sizing: border-box;
+    /* This creates the 3D space for the rotation effect */
+    perspective: 1000px;
+}
+
+/* The track that holds all the items and moves */
+.carousel-track {
+    display: flex;
+    gap: 16px;
+    /* Will be updated by JS */
+    width: 268px; 
+    cursor: grab;
+    user-select: none; /* Prevents text selection while dragging */
+}
+
+.carousel-track.grabbing {
+    cursor: grabbing;
+}
+
+/* Individual carousel item */
+.carousel-item {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #222;
+    border-radius: 12px;
+    overflow: hidden;
+    color: white;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /* This makes the 3D effect look right */
+    transform-style: preserve-3d;
+}
+
+.item-header {
+    padding: 20px;
+    padding-bottom: 16px;
+}
+
+.icon-container {
+    display: flex;
+    height: 28px;
+    width: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #060010;
+}
+
+.icon-container svg {
+    height: 16px;
+    width: 16px;
+    stroke: white;
+}
+
+.item-content {
+    padding: 20px;
+}
+
+.item-title {
+    margin-bottom: 4px;
+    font-size: 1.125rem;
+    font-weight: 900;
+}
+
+.item-description {
+    font-size: 0.875rem;
+    color: #ccc;
+}
+
+/* Indicators at the bottom */
+.indicators-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.indicators {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    padding: 0 32px;
+}
+
+.indicator {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(51, 51, 51, 0.4);
+    transition: all 0.15s ease-in-out;
+}
+
+.indicator.active {
+    background-color: #333333;
+    transform: scale(1.2);
+}
+
+.carousel-item {
+    /* Change justify-content to start */
+    justify-content: flex-start;
+    background-color: #222;
+}
+
+.item-image-container {
+    width: 100%;
+    /* Creates a square aspect ratio for the image area */
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.item-image {
+    width: 100%;
+    height: 100%;
+    /* Ensures the image covers the area without being distorted */
+    object-fit: cover;
+    object-position: center top;
+    pointer-events: none;;
+}
+
+.item-content {
+    padding: 20px;
+    /* Allows content to grow if needed */
+    flex-grow: 1;
+}
+
+/* You might not need the old icon styles anymore */
+.item-header, .icon-container {
+    display: none;
+}
