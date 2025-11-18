@@ -666,7 +666,7 @@
   position: absolute;
   top: 0;
   right: 55px;
-  background: #080808;
+  background: rgba(8, 8, 8, 0.2); /* transparan 70% */
   color: #fff;
   font-size: 0.85rem;
   padding: 8px 14px;
@@ -693,7 +693,7 @@
   right: -8px;
   transform: translateY(-50%);
   border: 8px solid transparent;
-  border-left-color: #080808;
+  border-left-color: rgba(8, 8, 8, 0.2);
 }
 
 #contactHint:hover {
@@ -715,4 +715,32 @@
   0% { opacity: 0; transform: scale(.7); }
   50% { opacity: .9; transform: scale(1); }
   100% { opacity: 0; transform: scale(1.25); }
+}
+
+/* Rata kiri untuk semua toggle */
+#toggleAbout,
+#toggleWork,
+#project1Toggle,
+#kuliahkuToggle,
+#researchToggle,
+#pklToggle,
+#tebakanomaliToggle,
+#roblox {
+  display: block;
+  text-align: left;
+  margin: 0;
+}
+
+/* Rata kiri untuk semua content collapse */
+#aboutContent,
+#workContent,
+#project1Content,
+#kuliahkuContent,
+#researchContent,
+#pklContent,
+#tebakanomaliContent,
+#robloxContent {
+  text-align: left;
+  margin-left: 0;
+  padding-left: 1rem; /* jika ingin sedikit indent; hapus bila tidak perlu */
 }
