@@ -666,7 +666,7 @@
   position: absolute;
   top: 0;
   right: 55px;
-  background: rgba(8, 8, 8, 0.2); /* transparan 70% */
+  background: rgba(8, 8, 8, 0.5); /* transparan 70% */
   color: #fff;
   font-size: 0.85rem;
   padding: 8px 14px;
@@ -693,7 +693,7 @@
   right: -8px;
   transform: translateY(-50%);
   border: 8px solid transparent;
-  border-left-color: rgba(8, 8, 8, 0.2);
+  border-left-color: rgba(8, 8, 8, 0.5);
 }
 
 #contactHint:hover {
