@@ -267,6 +267,16 @@ if (researchToggle && researchContent) {
   });
 }
 
+// "PKL" toggle
+const pklToggle = document.getElementById('pklToggle');
+const pklContent = document.getElementById('pklContent');
+if (pklToggle && pklContent) {
+  pklToggle.addEventListener('click', () => {
+    pklContent.classList.toggle('active');
+  });
+}
+
+
 // "Roblox" toggle
 const robloxBtn = document.getElementById('roblox');
 const robloxContent = document.getElementById('robloxContent');
@@ -283,6 +293,23 @@ if (socialToggle && socialIcons) {
   socialToggle.addEventListener('click', () => {
     socialIcons.classList.toggle('active');
   });
+}
+
+// Contact hint (delayed, persistent each refresh)
+const contactHint = document.getElementById('contactHint');
+if (socialToggle && contactHint) {
+  setTimeout(() => {
+    contactHint.classList.add('visible');
+    socialToggle.classList.add('pulse');
+  }, 5000);
+
+  function hideHint() {
+    contactHint.classList.remove('visible');
+    socialToggle.classList.remove('pulse');
+  }
+
+  contactHint.addEventListener('click', hideHint);
+  socialToggle.addEventListener('click', hideHint);
 }
 
 /***********************************************

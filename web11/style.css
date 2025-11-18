@@ -46,7 +46,7 @@
     cursor: pointer;
     font-size: 1.2rem;
     color: white;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: transform 0.1s ease, color 0.1s ease;
   }
   #toggleAbout:hover {
     transform: scale(1.1);
@@ -214,7 +214,7 @@
     cursor: pointer;
     font-size: 1.2rem;
     color: white;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: transform 0.1s ease, color 0.1s ease;
   }
   #toggleWork:hover {
     transform: scale(1.1);
@@ -298,6 +298,33 @@
   #researchToggle:hover {
     color: #830000;
   }
+
+  /* PKL collapsible */
+  #pklContent {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    background-color: #000;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+  }
+  #pklContent.active {
+    max-height: 4000px; /* large enough for content */
+    opacity: 1;
+  }
+  #pklToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; 
+    font-size: 1rem;
+    transition: color 0.1s ease; 
+  }
+  #pklToggle:hover {
+    color: #830000;
+  }
+
   
   /* Anomali */
   #tebakanomaliContent {
@@ -633,4 +660,59 @@
 /* You might not need the old icon styles anymore */
 .item-header, .icon-container {
     display: none;
+}
+
+#contactHint {
+  position: absolute;
+  top: 0;
+  right: 55px;
+  background: #080808;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity .4s cubic-bezier(.4,0,.2,1), transform .4s cubic-bezier(.4,0,.2,1);
+  z-index: 10000;
+  white-space: nowrap;       /* keep on one line */
+  min-width: auto;  
+  text-align: center;
+}
+#contactHint.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#contactHint::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  border: 8px solid transparent;
+  border-left-color: #080808;
+}
+
+#contactHint:hover {
+  background: #140000;
+}
+
+#socialToggle.pulse {
+  position: relative;
+}
+#socialToggle.pulse::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  animation: pulse 1.4s infinite;
+}
+@keyframes pulse {
+  0% { opacity: 0; transform: scale(.7); }
+  50% { opacity: .9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.25); }
 }
