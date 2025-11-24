@@ -301,7 +301,7 @@ if (socialToggle && contactHint) {
   setTimeout(() => {
     contactHint.classList.add('visible');
     socialToggle.classList.add('pulse');
-  }, 5000);
+  }, 10000);
 
   function hideHint() {
     contactHint.classList.remove('visible');
@@ -745,4 +745,56 @@ document.addEventListener("DOMContentLoaded", () => {
         startAutoplay();
     });
 });
+
+// Time Display Function
+function updateTime() {
+  const timeElement = document.getElementById('currentTime');
+  const now = new Date();
+  
+  // Format time for Indonesia (WIB - UTC+7)
+  const options = {
+    timeZone: 'Asia/Jakarta',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  };
+  
+  const timeString = now.toLocaleTimeString('en-US', options);
+  timeElement.textContent = timeString;
+}
+
+// Update time immediately and then every second
+updateTime();
+setInterval(updateTime, 1000);
+
+// Scroll reveal for About & My Work toggles
+// Re-select the elements here to ensure they exist
+const aboutButton = document.getElementById('toggleAbout');
+const workButton = document.getElementById('toggleWork');
+
+if (aboutButton || workButton) {
+  const revealButtons = [aboutButton, workButton].filter(Boolean);
+  
+  // Add reveal class to start them hidden
+  revealButtons.forEach(btn => btn.classList.add('reveal'));
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { 
+      threshold: 0.3,
+      rootMargin: '0px 0px -100px 0px'
+    });
+
+    revealButtons.forEach(btn => observer.observe(btn));
+  } else {
+    // Fallback: show immediately
+    revealButtons.forEach(btn => btn.classList.add('visible'));
+  }
+}
 

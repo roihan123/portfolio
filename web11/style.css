@@ -184,14 +184,54 @@
   
   /* Footer */
   footer {
-    width: 100%;
-    background: transparent;
-    color: #696969;
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 2rem;
-    padding: 1rem 0; /* Menambahkan sedikit padding untuk ruang napas */
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #696969;
+  font-size: 1rem;
+}
+
+#timeDisplay,
+#locationDisplay {
+  color: #696969;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+}
+
+#timeDisplay {
+  flex: 1;
+  text-align: left;
+}
+
+footer p {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+#locationDisplay {
+  flex: 1;
+  text-align: right;
+}
+
+/* Mobile responsive footer */
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
   }
+
+  #timeDisplay,
+  footer p,
+  #locationDisplay {
+    flex: none;
+    text-align: center;
+    width: 100%;
+  }
+}
   
   /* Collapsible toggles */
   #workContent {
@@ -664,7 +704,7 @@
 
 #contactHint {
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 55px;
   background: rgba(8, 8, 8, 0.5); /* transparan 70% */
   color: #fff;
@@ -690,7 +730,7 @@
   content: "";
   position: absolute;
   top: 50%;
-  right: -8px;
+  right: -16px;
   transform: translateY(-50%);
   border: 8px solid transparent;
   border-left-color: rgba(8, 8, 8, 0.5);
@@ -743,4 +783,15 @@
   text-align: left;
   margin-left: 0;
   padding-left: 1rem; /* jika ingin sedikit indent; hapus bila tidak perlu */
+}
+
+/* --- Scroll reveal for About / My Work toggles --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
