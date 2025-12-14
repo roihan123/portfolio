@@ -47,6 +47,7 @@
     font-size: 1.2rem;
     color: white;
     transition: transform 0.1s ease, color 0.1s ease;
+    transform-origin: left; /* Fix: Zoom from the left side */
   }
   #toggleAbout:hover {
     transform: scale(1.1);
@@ -255,6 +256,7 @@ footer p {
     font-size: 1.2rem;
     color: white;
     transition: transform 0.1s ease, color 0.1s ease;
+    transform-origin: left; /* Fix: Zoom from the left side */
   }
   #toggleWork:hover {
     transform: scale(1.1);

@@ -447,18 +447,18 @@ document.addEventListener("DOMContentLoaded", () => {
         // MyLovetime items
         mylovetime: [
             {
-                title: "Dashboard",
-                description: "Main view of the relationship tracker.",
+                title: "Time",
+                description: "Main view of the relationship time tracker.",
                 image: "../images/mylove1.png",
             },
             {
                 title: "Details",
-                description: "Detailed time tracking.",
+                description: "Detailed time.",
                 image: "../images/mylove3.png",
             },
             {
-                title: "Settings",
-                description: "Configuration options.",
+                title: "i love you since",
+                description: "the date that i start loving you.",
                 image: "../images/mylove2.png",
             },
         ],
