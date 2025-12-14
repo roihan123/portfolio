@@ -235,8 +235,16 @@ const kuliahkuToggle = document.getElementById('kuliahkuToggle');
 const kuliahkuContent = document.getElementById('kuliahkuContent');
 if (kuliahkuToggle && kuliahkuContent) {
   kuliahkuToggle.addEventListener('click', () => {
-    kuliahkuContent.style.display = kuliahkuContent.style.display === 'block' ? 'none' : 'block';
     kuliahkuContent.classList.toggle('active');
+  });
+}
+
+// "MyLovetime" toggle
+const mylovetimeToggle = document.getElementById('mylovetimeToggle');
+const mylovetimeContent = document.getElementById('mylovetimeContent');
+if (mylovetimeToggle && mylovetimeContent) {
+  mylovetimeToggle.addEventListener('click', () => {
+    mylovetimeContent.classList.toggle('active');
   });
 }
 
@@ -434,6 +442,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Calendar",
                 description: "See all your schedule and task deadlines.",
                 image: "../images/kuliahku5.jpg",
+            },
+        ],
+        // MyLovetime items
+        mylovetime: [
+            {
+                title: "Dashboard",
+                description: "Main view of the relationship tracker.",
+                image: "../images/mylove1.png",
+            },
+            {
+                title: "Details",
+                description: "Detailed time tracking.",
+                image: "../images/mylove3.png",
+            },
+            {
+                title: "Settings",
+                description: "Configuration options.",
+                image: "../images/mylove2.png",
             },
         ],
         // Second set of items

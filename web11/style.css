@@ -312,6 +312,34 @@ footer p {
   #kuliahkuToggle:hover {
     color: #830000;
   }
+
+  /* MyLovetime collapsible */
+  #mylovetimeContent {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
+    background-color: #000;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+  }
+  #mylovetimeContent.active {
+    max-height: 4000px;
+    opacity: 1;
+  }
+  #mylovetimeToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: color 0.1s ease;
+    text-align: left;
+    width: 100%;
+  }
+  #mylovetimeToggle:hover {
+    color: #830000;
+  }
   
   /* Research collapsible */
   #researchContent {
@@ -762,13 +790,13 @@ footer p {
 #toggleWork,
 #project1Toggle,
 #kuliahkuToggle,
+#mylovetimeToggle,
 #researchToggle,
 #pklToggle,
 #tebakanomaliToggle,
 #roblox {
-  display: block;
   text-align: left;
-  margin: 0;
+  width: 100%;
 }
 
 /* Rata kiri untuk semua content collapse */
@@ -776,6 +804,7 @@ footer p {
 #workContent,
 #project1Content,
 #kuliahkuContent,
+#mylovetimeContent,
 #researchContent,
 #pklContent,
 #tebakanomaliContent,
