@@ -824,3 +824,59 @@ if (aboutButton || workButton) {
   }
 }
 
+/***********************************************
+ *   TITLE TYPEWRITER ANIMATION
+ ***********************************************/
+const titleText = "roihan123";
+let titleIndex = 0;
+let isDeleting = false;
+let cursorVisible = true;
+
+// Blink the cursor
+setInterval(() => {
+  cursorVisible = !cursorVisible;
+  updateTitle();
+}, 500);
+
+function updateTitle() {
+  const text = titleText.substring(0, titleIndex);
+  const cursor = cursorVisible ? "_" : " ";
+  document.title = text + cursor;
+}
+
+function animateTitle() {
+  if (!isDeleting) {
+    // Typing forward
+    titleIndex++;
+    updateTitle();
+    
+    if (titleIndex === titleText.length) {
+      // Pause at full text, then start deleting
+      setTimeout(() => {
+        isDeleting = true;
+        animateTitle();
+      }, 3000);
+      return;
+    }
+  } else {
+    // Deleting backward
+    titleIndex--;
+    updateTitle();
+    
+    if (titleIndex === 0) {
+      // Pause at empty, then start typing again
+      isDeleting = false;
+    }
+  }
+  
+  // Typing speed with variation
+  function randomSpeed(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  const speed = isDeleting ? randomSpeed(100, 300) : randomSpeed(150, 350);
+  setTimeout(animateTitle, speed);
+}
+
+// Start the title animation
+animateTitle();
