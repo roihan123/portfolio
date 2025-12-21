@@ -827,9 +827,35 @@ if (aboutButton || workButton) {
 /***********************************************
  *   TITLE TYPEWRITER ANIMATION
  ***********************************************/
-const titleText = "roihan123";
-let titleIndex = 0;
-let isDeleting = false;
+/***********************************************
+ *   TITLE TYPEWRITER ANIMATION
+ ***********************************************/
+const titleSequence = [
+  { action: 'type', char: 'r' },
+  { action: 'type', char: 'o' },
+  { action: 'type', char: 'y' },  // typo!
+  { action: 'pause', duration: 400 },
+  { action: 'delete' },           // delete 'y'
+  { action: 'pause', duration: 200 },
+  { action: 'type', char: 'i' },  // correct letter
+  { action: 'type', char: 'j' },
+  { action: 'pause', duration: 400 },
+  { action: 'delete' },           
+  { action: 'pause', duration: 200 },
+  { action: 'type', char: 'h' },
+  { action: 'type', char: 'a' },
+  { action: 'type', char: 'n' },
+  { action: 'type', char: '1' },
+  { action: 'type', char: '2' },
+  { action: 'type', char: '3' },
+  { action: 'pause', duration: 3000 },  // pause at full text
+  { action: 'deleteToR' },        // delete until only "r" remains
+  { action: 'pause', duration: 500 },
+  { action: 'restart' }           // loop (will continue from "r")
+];
+
+let currentText = "";
+let sequenceIndex = 0;
 let cursorVisible = true;
 
 // Blink the cursor
@@ -839,43 +865,72 @@ setInterval(() => {
 }, 500);
 
 function updateTitle() {
-  const text = titleText.substring(0, titleIndex);
   const cursor = cursorVisible ? "_" : " ";
-  document.title = text + cursor;
+  // Use a space if text is empty to prevent showing default page title
+  const displayText = currentText || " ";
+  document.title = displayText + cursor;
+}
+
+function randomSpeed(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function animateTitle() {
-  if (!isDeleting) {
-    // Typing forward
-    titleIndex++;
-    updateTitle();
-    
-    if (titleIndex === titleText.length) {
-      // Pause at full text, then start deleting
-      setTimeout(() => {
-        isDeleting = true;
+  if (sequenceIndex >= titleSequence.length) {
+    sequenceIndex = 0;
+  }
+  
+  const step = titleSequence[sequenceIndex];
+  
+  switch (step.action) {
+    case 'type':
+      currentText += step.char;
+      updateTitle();
+      sequenceIndex++;
+      setTimeout(animateTitle, randomSpeed(150, 350));
+      break;
+      
+    case 'delete':
+      currentText = currentText.slice(0, -1);
+      updateTitle();
+      sequenceIndex++;
+      setTimeout(animateTitle, randomSpeed(100, 200));
+      break;
+      
+    case 'deleteToR':
+      // Keep deleting until only "r" remains
+      if (currentText.length > 1) {
+        currentText = currentText.slice(0, -1);
+        updateTitle();
+        setTimeout(animateTitle, randomSpeed(80, 150));
+      } else {
+        sequenceIndex++;
         animateTitle();
-      }, 3000);
-      return;
-    }
-  } else {
-    // Deleting backward
-    titleIndex--;
-    updateTitle();
-    
-    if (titleIndex === 0) {
-      // Pause at empty, then start typing again
-      isDeleting = false;
-    }
+      }
+      break;
+      
+    case 'deleteAll':
+      if (currentText.length > 0) {
+        currentText = currentText.slice(0, -1);
+        updateTitle();
+        setTimeout(animateTitle, randomSpeed(80, 150));
+      } else {
+        sequenceIndex++;
+        animateTitle();
+      }
+      break;
+      
+    case 'pause':
+      sequenceIndex++;
+      setTimeout(animateTitle, step.duration);
+      break;
+      
+    case 'restart':
+      // Reset sequence but keep currentText (which is "r")
+      sequenceIndex = 1; // Skip the first 'type r' since we already have it
+      animateTitle();
+      break;
   }
-  
-  // Typing speed with variation
-  function randomSpeed(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  
-  const speed = isDeleting ? randomSpeed(100, 300) : randomSpeed(150, 350);
-  setTimeout(animateTitle, speed);
 }
 
 // Start the title animation
